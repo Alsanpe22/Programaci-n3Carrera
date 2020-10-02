@@ -1,0 +1,57 @@
+const persona:Object={
+   nombre:'Alvaro' ,universidad:'Nebrija',
+    asignaturas:[ {nombre:"Sistemas Operativos", creditos:6},{ nombre:"Arquitectura de Computadores", creditos:6}]
+}
+const persona1:Object={
+   nombre:'Paco' ,universidad:'Complutense',
+    asignaturas:[ { nombre:"Sistemas Operativos", creditos:6 },{ nombre:"Arquitectura de Computadores", creditos:6}]
+}
+
+const asignaturas_a:Object={
+    suspensas:[{nombre2:"Paco",suspensa:"PL"}]
+}
+
+const asignaturas_p:Object={
+    suspensas:[{nombre:"Alvaro",suspensa:"Estructura de Computadores"},]
+}
+
+const deepPrint=(a:Object):void=>{
+    let au:string[]=Object.keys(a)
+    au.forEach(key=>{
+        if(Array.isArray(a[key])){ 
+            console.log(`${key}:`) 
+            for(let i of a[key]){
+                
+               deepPrint(i)
+            }
+        }else if(typeof (a[key]!="object")){ 
+            console.log(`${key}: ${a[key]}`)
+        }
+  })
+}
+
+const deepClone=(a:Object):Object=>{   
+  let clone:Object={} //objeto de la persona
+  for(let i in a){
+      let valor = a[i] 
+      if(typeof (valor != "object")){
+          
+          clone[i]=valor
+      }else{
+          clone[i]=deepClone(valor)
+      }
+  }
+ deepPrint(clone)
+  return clone
+}
+const deepEqual=(a:Object, b:Object):boolean=>{} // nos diría si es igual o no ambos objetos.
+
+console.log("======================")
+deepPrint(persona)
+console.log("======================")
+deepPrint(persona1)
+console.log("======================")
+deepClone(asignaturas_a)
+console.log("======================")
+deepClone(asignaturas_p)
+console.log("======================")
